@@ -21,7 +21,7 @@ let stateKeysToPersist = ['users']
 let actionsAllowedToSave = [AUTH_LOGOUT, USERS_GET_ALL_SUCCESS]
 const persistence = storage.createMiddleware(engine, [], actionsAllowedToSave)
 
-const enableLogger = false
+const enableLogger = true
 let createStoreWithMiddleware
 if (__DEV__ && enableLogger) { //eslint-disable-line no-undef
   const logger = createLogger()

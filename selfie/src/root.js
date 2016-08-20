@@ -14,8 +14,8 @@ import { loadInitialData } from './redux/store'
 import App from './containers/app'
 import {Actions} from '../node_modules/react-native-router-flux'
 import _ from 'lodash' // TOFIX: hrmmmm... not sure about having this one in...
-import * as appActions from './redux/actions/appActions'
 import ActivityAndroid from '../node_modules/react-native-activity-android'
+import * as appActions from './redux/actions/appActions'
 
 DeviceEventEmitter.addListener(
   'IntentReceived',
@@ -35,7 +35,13 @@ class Root extends Component {
     // if (!__DEV__ && Platform.OS === 'ios') { //eslint-disable-line no-undef
       // CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE })
     // }
-    this.subscribeToAppLifecycleEvents()
+    // this.subscribeToAppLifecycleEvents()
+
+    this.loadInitialDataFromReduxStorage()
+
+    setTimeout(() => {
+      store.dispatch(appActions.registerDevice())
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -44,9 +50,7 @@ class Root extends Component {
 
   // TOFIX: do this on LOAD action of redux-store, this is logic that should be in the actions not component
   loadInitialDataFromReduxStorage() {
-    loadInitialData((newState) => {
-
-    })
+    loadInitialData((newState) => { })
   }
 
   subscribeToAppLifecycleEvents() {
@@ -57,14 +61,13 @@ class Root extends Component {
         }
       })
     } else {
-      // ActivityAndroid.addEventListener('activityResume', () => {
-        // this.appDidBecomeActive()
-      // })
+      ActivityAndroid.addEventListener('activityResume', () => {
+        this.appDidBecomeActive()
+      })
     }
   }
 
   removeAppLifecycleEventListeners() {
-    TOFIX
     AppStateIOS.removeEventListener('change')
     ActivityAndroid.removeEventListener('activityResume')
   }

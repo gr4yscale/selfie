@@ -6,11 +6,11 @@ import {
   Text
 } from 'react-native'
 
+import store from '../redux/store'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {Actions} from '../../node_modules/react-native-router-flux'
-import * as appActions from '../redux/actions/appActions'
 import Camera from 'react-native-camera'
+import {photoTaken} from '../redux/actions/appActions'
 
 class CameraContainer extends Component {
 
@@ -38,7 +38,11 @@ class CameraContainer extends Component {
 
   takePicture() {
     this.camera.capture()
-      .then((data) => console.log(data))
+      .then((path) => {
+        console.log('*** Photo store on disk: ***')
+        console.log(path)
+        store.dispatch(photoTaken())
+      })
       .catch(err => console.error(err));
   }
 }

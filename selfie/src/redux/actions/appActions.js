@@ -1,6 +1,5 @@
+import {Actions} from '../../../node_modules/react-native-router-flux'
 import * as actionTypes from '../actionTypes'
-// TOFIX put an Server here
-// import Server from '../../parse'
 
 import _ from 'lodash'
 import {createAction} from 'redux-actions'
@@ -9,8 +8,6 @@ import {
   NativeModules,
   Platform,
 } from 'react-native'
-
-const Server = {foo: 'bar'}
 
 export const getAllUsersRequest = () => ({type: actionTypes.USERS_GET_ALL_REQUEST})
 export const getAllUsersSuccess = (json) => ({type: actionTypes.USERS_GET_ALL_SUCCESS, response: json})
@@ -36,10 +33,36 @@ export function getAllUsers() {
   }
 }
 
-// UTILITY / JUNK / CRUFT / GET THIS THE FUCK OUT OF HERE:
-//////////////////////////////////////////////////////
+export function photoTaken() {
+  return (dispatch) => {
+    console.log('Navigating to MainContainer')
+    Actions.MainContainer()
+    return dispatch(createAction(actionTypes.PHOTO_TAKEN))
+  }
+}
 
-function configuredServer(state) {
-  return { foo: 'bar'}
-  // return new Server('userToken');
+export function registerDevice() {
+  return (dispatch) => {
+    dispatch(createAction(actionTypes.REGISTERING_DEVICE))
+
+    let requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      mode: 'cors',
+    }
+    requestOptions.body = JSON.stringify({"deviceId": "fakephone1"})
+
+    return fetch('http://192.168.0.10:8000/api/v0/registerDevice', requestOptions)
+    .then((response) => {
+      console.log('register device response:')
+      console.log(response)
+      return dispatch(createAction(actionTypes.REGISTERED_DEVICE))
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 }

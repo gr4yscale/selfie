@@ -1,8 +1,6 @@
 package com.selfie;
 
 import com.facebook.react.ReactActivity;
-import ca.jaysoo.activityandroid.ActivityAndroidPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainActivity extends ReactActivity {
 

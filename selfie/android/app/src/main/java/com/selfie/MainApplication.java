@@ -9,6 +9,12 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
+// my modules
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import ca.jaysoo.activityandroid.ActivityAndroidPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +29,10 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+          new RCTCameraPackage(),
+          new ActivityAndroidPackage(),
+          new VectorIconsPackage()
       );
     }
   };

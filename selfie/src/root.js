@@ -35,11 +35,11 @@ class Root extends Component {
     // if (!__DEV__ && Platform.OS === 'ios') { //eslint-disable-line no-undef
       // CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE })
     // }
-    // this.subscribeToAppLifecycleEvents()
+    this.subscribeToAppLifecycleEvents()
   }
 
   componentWillUnmount() {
-    // this.removeAppLifecycleEventListeners()
+    this.removeAppLifecycleEventListeners()
   }
 
   // TOFIX: do this on LOAD action of redux-store, this is logic that should be in the actions not component
@@ -49,32 +49,32 @@ class Root extends Component {
     })
   }
 
-  // subscribeToAppLifecycleEvents() {
-  //   if (Platform.OS === 'ios') {
-  //     AppStateIOS.addEventListener('change', (appState) => {
-  //       if (appState === 'active') {
-  //         this.appDidBecomeActive()
-  //       }
-  //     })
-  //   } else {
-  //     // ActivityAndroid.addEventListener('activityResume', () => {
-  //       // this.appDidBecomeActive()
-  //     // })
-  //   }
-  // }
-//
-  // removeAppLifecycleEventListeners() {
-    // TOFIX
-    // AppStateIOS.removeEventListener('change')
-    // ActivityAndroid.removeEventListener('activityResume')
-  // }
-//
-  // appDidBecomeActive() {
+  subscribeToAppLifecycleEvents() {
+    if (Platform.OS === 'ios') {
+      AppStateIOS.addEventListener('change', (appState) => {
+        if (appState === 'active') {
+          this.appDidBecomeActive()
+        }
+      })
+    } else {
+      // ActivityAndroid.addEventListener('activityResume', () => {
+        // this.appDidBecomeActive()
+      // })
+    }
+  }
+
+  removeAppLifecycleEventListeners() {
+    TOFIX
+    AppStateIOS.removeEventListener('change')
+    ActivityAndroid.removeEventListener('activityResume')
+  }
+
+  appDidBecomeActive() {
     // TOFIX
     // if (!__DEV__ && Platform.OS === 'ios') { //eslint-disable-line no-undef
       // CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE })
     // }
-  // }
+  }
 
   refreshData() {
     // TOFIX: refresh data properly

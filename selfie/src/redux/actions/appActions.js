@@ -10,6 +10,8 @@ import {
   Platform,
 } from 'react-native'
 
+let uuid = require('react-native-uuid')
+
 export const getAllUsersRequest = () => ({type: actionTypes.USERS_GET_ALL_REQUEST})
 export const getAllUsersSuccess = (json) => ({type: actionTypes.USERS_GET_ALL_SUCCESS, response: json})
 export const getAllUsersFailure = (error) => ({type: actionTypes.USERS_GET_ALL_FAILURE, payload: error})
@@ -38,7 +40,8 @@ export function photoTaken(photo) {
   return (dispatch, action) => {
     dispatch(createAction(actionTypes.PHOTO_TAKEN))
     dispatch(uploadPhoto(photo))
-    .then(() => {
+    .then((photoUrl) => {
+      dispatch(updateStatus(photoUrl))
       console.log('Navigating to MainContainer')
       Actions.MainContainer()
     })
@@ -75,7 +78,7 @@ export function uploadPhoto(photo) {
   return (dispatch) => {
     let file = {
       uri: photo.path,
-      name: "image.jpg",
+      name: uuid.v1() + '.jpg',
       type: "image/jpg"
     }
 
@@ -106,5 +109,36 @@ export function uploadPhoto(photo) {
   }
 }
 
+export function updateStatus(photoUrl) {
+  return (dispatch) => {
+    dispatch(createAction(actionTypes.UPDATING_STATUS))
 
+    let requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      mode: 'cors',
+    }
 
+    // TOFIX: userInfo will come from the redux store
+    requestOptions.body = JSON.stringify({
+      userToken: "5b4f6722-df95-4be2-b57d-fab5e021e065",
+      deviceId: "5b4f6722-df95-4be2-b57d-fab5e021e065",
+      lat: "51.5074",
+      lon: "0.1278",
+      latestSelfieUrl: photoUrl
+    })
+
+    return fetch('http://192.168.0.10:8000/api/v0/update', requestOptions)
+    .then((response) => {
+      console.log('update response:')
+      console.log(response)
+      return dispatch(createAction(actionTypes.UPDATED_STATUS))
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+}

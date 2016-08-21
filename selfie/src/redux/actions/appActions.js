@@ -52,6 +52,8 @@ export function photoTaken(photo) {
   }
 }
 
+export const deviceIdentifierDiscovered = createAction(actionTypes.DEVICE_IDENTIFIER_DISCOVERED)
+
 export function registerDevice() {
   return (dispatch) => {
     dispatch(createAction(actionTypes.REGISTERING_DEVICE))

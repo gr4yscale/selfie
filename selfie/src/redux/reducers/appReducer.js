@@ -2,7 +2,6 @@ import * as actionTypes from '../actionTypes'
 import _ from 'lodash'
 
 const initialState = {
-  requestCount: 0,
 }
 
 export default function app(state = initialState, action) {
@@ -28,6 +27,11 @@ export default function app(state = initialState, action) {
     //   return Object.assign({}, state, {
     //     links,
     //   })
+
+    case actionTypes.DEVICE_IDENTIFIER_DISCOVERED:
+      return Object.assign({}, state, {
+        deviceIdentifier: action.payload,
+      })
 
     case actionTypes.USERS_GET_ALL_REQUEST:
       return Object.assign({}, state, {

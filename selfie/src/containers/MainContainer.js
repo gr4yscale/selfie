@@ -39,7 +39,7 @@ class MainContainer extends Component {
 
 export default connect(
   (state) => {
-    return state.app
+    return state
   },
   (dispatch) => {
     return {

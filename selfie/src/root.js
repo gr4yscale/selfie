@@ -17,6 +17,8 @@ import _ from 'lodash' // TOFIX: hrmmmm... not sure about having this one in...
 import ActivityAndroid from '../node_modules/react-native-activity-android'
 import * as appActions from './redux/actions/appActions'
 
+DeviceInfo = require('react-native-device-info')
+
 DeviceEventEmitter.addListener(
   'IntentReceived',
   (data) => {
@@ -50,7 +52,10 @@ class Root extends Component {
 
   // TOFIX: do this on LOAD action of redux-store, this is logic that should be in the actions not component
   loadInitialDataFromReduxStorage() {
-    loadInitialData((newState) => { })
+    loadInitialData((newState) => {
+      let id = DeviceInfo.getUniqueID()
+      store.dispatch(appActions.deviceIdentifierDiscovered(id))
+    })
   }
 
   subscribeToAppLifecycleEvents() {

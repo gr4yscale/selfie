@@ -36,14 +36,18 @@ export function getAllUsers() {
   }
 }
 
+export const uploadingPhoto = createAction(actionTypes.UPLOADING_PHOTO)
+
 export function photoTaken(photo) {
-  return (dispatch, action) => {
-    dispatch(createAction(actionTypes.PHOTO_TAKEN))
-    dispatch(uploadPhoto(photo))
+  return (dispatch) => {
+    dispatch(photoTaken)
+    dispatch(uploadingPhoto())
+    return dispatch(uploadPhoto(photo))
     .then((photoUrl) => {
       dispatch(updateStatus(photoUrl))
       console.log('Navigating to MainContainer')
       Actions.MainContainer()
+      return Promise.resolve()
     })
   }
 }
@@ -74,6 +78,8 @@ export function registerDevice() {
   }
 }
 
+const uploadedPhoto = createAction(actionTypes.UPLOADED_PHOTO)
+
 export function uploadPhoto(photo) {
   return (dispatch) => {
     let file = {
@@ -96,9 +102,10 @@ export function uploadPhoto(photo) {
           if (response.status !== 201)
             throw new Error("Failed to upload image to S3");
           else {
+            let photoUrl = response.body.postResponse.location
             console.log('Uploaded a file to:')
-            console.log(response.body.postResponse.location);
-            return Promise.resolve(response.body.postResponse.location)
+            dispatch(uploadedPhoto(photoUrl))
+            return Promise.resolve(photoUrl)
           }
         })
         .catch((err) => {

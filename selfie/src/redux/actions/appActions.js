@@ -3,6 +3,7 @@ import * as actionTypes from '../actionTypes'
 
 import _ from 'lodash'
 import {createAction} from 'redux-actions'
+import { RNS3 } from 'react-native-aws3'
 
 import {
   NativeModules,
@@ -33,11 +34,14 @@ export function getAllUsers() {
   }
 }
 
-export function photoTaken() {
-  return (dispatch) => {
-    console.log('Navigating to MainContainer')
-    Actions.MainContainer()
-    return dispatch(createAction(actionTypes.PHOTO_TAKEN))
+export function photoTaken(photo) {
+  return (dispatch, action) => {
+    dispatch(createAction(actionTypes.PHOTO_TAKEN))
+    dispatch(uploadPhoto(photo))
+    .then(() => {
+      console.log('Navigating to MainContainer')
+      Actions.MainContainer()
+    })
   }
 }
 
@@ -66,3 +70,41 @@ export function registerDevice() {
     })
   }
 }
+
+export function uploadPhoto(photo) {
+  return (dispatch) => {
+    let file = {
+      uri: photo.path,
+      name: "image.jpg",
+      type: "image/jpg"
+    }
+
+    let options = {
+      keyPrefix: "uploads/",
+      bucket: "selfie-dev-images",
+      region: "eu-central-1",
+      accessKey: "[redacted]",
+      secretKey: "[redacted]",
+      successActionStatus: 201
+    }
+
+    return RNS3.put(file, options)
+        .then(response => {
+          if (response.status !== 201)
+            throw new Error("Failed to upload image to S3");
+          else {
+            console.log('Uploaded a file to:')
+            console.log(response.body.postResponse.location);
+            return Promise.resolve(response.body.postResponse.location)
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          // TOFIX: Alert the error of issue here
+        })
+        .progress((e) => console.log(e.loaded / e.total))
+  }
+}
+
+
+

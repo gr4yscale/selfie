@@ -10,7 +10,7 @@ import store from '../redux/store'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Camera from 'react-native-camera'
-import {photoTaken} from '../redux/actions/appActions'
+import {photoTaken, uploadPhoto, updateStatus} from '../redux/actions/appActions'
 
 class CameraContainer extends Component {
 
@@ -38,12 +38,14 @@ class CameraContainer extends Component {
 
   takePicture() {
     this.camera.capture()
-      .then((path) => {
-        console.log('*** Photo store on disk: ***')
-        console.log(path)
-        store.dispatch(photoTaken())
+      .then((photo) => {
+        console.log('*** Captured photo stored on disk at the following path: ***')
+        console.log(photo.path)
+        store.dispatch(photoTaken(photo))
       })
-      .catch(err => console.error(err));
+      .catch((err) => {
+        console.error(err)
+      });
   }
 }
 

@@ -13,6 +13,7 @@
     "react-native-activity-android": "github:gr4yscale/react-native-activity-android",
     "react-native-aws3": "0.0.2",
     "react-native-camera": "github:lwansbrough/react-native-camera",
+    "react-native-device-info": "^0.9.4",
     "react-native-router-flux": "^3.35.0",
     "react-native-scrollable-tab-view": "^0.5.3",
     "react-native-uuid": "^1.4.8",

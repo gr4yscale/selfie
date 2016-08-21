@@ -80,6 +80,10 @@ export function registerDevice() {
   }
 }
 
+export const usersLocationUpdated = createAction(actionTypes.USERS_LOCATION_UPDATED)
+
+// photo upload
+
 const uploadedPhoto = createAction(actionTypes.UPLOADED_PHOTO)
 
 export function uploadPhoto(photo) {

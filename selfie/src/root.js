@@ -44,6 +44,31 @@ class Root extends Component {
     setTimeout(() => {
       store.dispatch(appActions.registerDevice())
     }, 1000)
+
+    // TOFIX: update the redux store with latest users geo data on an interval for now,
+    // in the future, do this on app open
+
+    const updateStoreWithUsersLocation = () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log('Users latest position:')
+          console.log(JSON.stringify(position))
+
+          store.dispatch(appActions.usersLocationUpdated(position))
+        },
+        (error) => {
+          console.log('Error getting users position!')
+          console.log(error)
+        },
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      )
+    }
+
+    setInterval(() => {
+      updateStoreWithUsersLocation()
+    }, 1000 * 60)
+
+    updateStoreWithUsersLocation()
   }
 
   componentWillUnmount() {

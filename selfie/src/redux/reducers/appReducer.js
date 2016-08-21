@@ -32,7 +32,10 @@ export default function app(state = initialState, action) {
       return Object.assign({}, state, {
         deviceIdentifier: action.payload,
       })
-
+    case actionTypes.USERS_LOCATION_UPDATED:
+      return Object.assign({}, state, {
+        usersLocation: action.payload.coords
+      })
     case actionTypes.USERS_GET_ALL_REQUEST:
       return Object.assign({}, state, {
         users: [],

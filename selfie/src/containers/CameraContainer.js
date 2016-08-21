@@ -38,6 +38,7 @@ class CameraContainer extends Component {
         >
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.captureTouch}>
             <View style={styles.capture} />
+            <Text style={styles.captureEmoji}>👌</Text>
           </TouchableOpacity>
         </Camera>
       </View>
@@ -83,6 +84,11 @@ let styles = StyleSheet.create({
     left : (Dimensions.get('window').width / 2) - (80 / 2) - 10,
     width: 80,
     height: 80
+  },
+  captureEmoji: {
+    fontSize: 40,
+    textAlign: 'center',
+    paddingTop: 10
   }
 })
 

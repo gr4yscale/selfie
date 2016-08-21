@@ -15,6 +15,7 @@ import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import ca.jaysoo.activityandroid.ActivityAndroidPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.projectseptember.RNGL.RNGLPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
           new RCTCameraPackage(),
           new ActivityAndroidPackage(),
           new VectorIconsPackage(),
-          new RNDeviceInfo()
+          new RNDeviceInfo(),
+          new RNGLPackage()
       );
     }
   };

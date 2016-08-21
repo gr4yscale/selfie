@@ -126,6 +126,7 @@ android {
 }
 
 dependencies {
+    compile project(':gl-react-native')
     compile project(':react-native-device-info')
     compile project(':react-native-camera')
     compile project(':react-native-activity-android')

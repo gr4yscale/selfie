@@ -1,0 +1,33 @@
+{
+  "name": "selfie",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "eslint-plugin-react": "^6.1.2",
+    "gl-react": "^2.2.5",
+    "gl-react-native": "^2.28.3",
+    "lodash": "^4.15.0",
+    "react": "15.2.1",
+    "react-native": "0.31.0",
+    "react-native-activity-android": "github:gr4yscale/react-native-activity-android",
+    "react-native-aws3": "0.0.2",
+    "react-native-camera": "github:lwansbrough/react-native-camera",
+    "react-native-device-info": "^0.9.4",
+    "react-native-router-flux": "^3.35.0",
+    "react-native-scrollable-tab-view": "^0.5.3",
+    "react-native-uuid": "^1.4.8",
+    "react-native-vector-icons": "^2.0.3",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-actions": "^0.11.0",
+    "redux-logger": "^2.6.1",
+    "redux-promise": "^0.5.3",
+    "redux-storage": "^4.1.1",
+    "redux-storage-engine-reactnativeasyncstorage": "^1.0.2",
+    "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {}
+}

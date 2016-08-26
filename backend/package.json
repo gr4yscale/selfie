@@ -1,0 +1,27 @@
+{
+  "name": "selfie-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "env $(cat .env) node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bunyan": "^1.8.1",
+    "bunyan-request": "^1.2.0",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "firebase": "^3.3.0",
+    "firebase-token-generator": "^2.0.0",
+    "geofire": "^4.1.1",
+    "jade": "^1.11.0",
+    "multer": "^1.2.0",
+    "node-env": "^0.1.6",
+    "node-env-file": "^0.1.8",
+    "path": "^0.12.7"
+  }
+}

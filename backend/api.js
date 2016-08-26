@@ -1,11 +1,15 @@
 const express = require('express');
 const DeviceRegisterer = require('./lib/device-registerer');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const api = express();
-const router = express.Router();
 
 const deviceRegisterer = DeviceRegisterer();
 
-router.post('/registerDevice', deviceRegisterer.handleRegisterDevice);
+api.post('/registerDevice', deviceRegisterer.handleRegisterDevice);
 
-module.exports = router;
+api.post('/update', upload.single('selfie'), deviceRegisterer.handleUpdate);
+
+module.exports = api;
